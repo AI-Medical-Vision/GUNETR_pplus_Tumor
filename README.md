@@ -55,6 +55,9 @@ GUNETR_pplus_LiTS
 │                           ├── volume-3.nii
 │                           ├── ...
 │                           └── volume-123.nii
+│                   ├── masking
+│                       ├── 3Dircadb
+│                       ├── LiTS
 │                   └── unetr_pp_Plansv2.1_plans_3D.pkl
 ```
 LiTS dataset: [131 cases](https://github.com/Auggen21/LITS-Challenge?tab=readme-ov-file).  
