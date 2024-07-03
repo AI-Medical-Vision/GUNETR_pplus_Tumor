@@ -33,7 +33,7 @@ pip install -r requirements.txt
   
 ---
 # Dataset
-In paper, we teseted `LiTS`, `3Dircadb`, and `Sliver07`.  
+In paper, we teseted `LiTS`, and `3Dircadb`.  
   
 ## Dataset format
 ```
