@@ -163,8 +163,9 @@ def main():
                 pass
 
             trainer.run_training()
+            
         else:
-            valbest = True # best 모델
+            valbest = False # best 모델
             print("######### valbest", valbest) # False
             if valbest:
                 trainer.load_best_checkpoint(train=False)
@@ -174,8 +175,8 @@ def main():
         trainer.network.eval()
 
         # predict validation
-        data = input("Dataset names(3Dircadb, LiTS, Sliver):")
-        if data in ['3Dircadb', 'LiTS', 'Sliver']:
+        data = input("Dataset names(3Dircadb, LiTS):")
+        if data in ['3Dircadb', 'LiTS']:
             if data == 'LiTS':
                 extension = '.nii'
             elif data == '3Dircadb':

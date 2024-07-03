@@ -839,7 +839,7 @@ class Trainer_synapse(NetworkTrainer_synapse):
             #properties = load_pickle(self.dataset[k]['properties_file'])
             fname = k # path
             nii_name = fname
-            #print(nii_name)
+            #print(nii_name.replace('npy', 'nii'))
             flag = nii_name in validation_folder # True: 존재 함
             if not flag:
             #if overwrite or (not isfile(join(output_folder, fname + ".nii.gz"))) or \
@@ -1060,8 +1060,7 @@ class Trainer_synapse(NetworkTrainer_synapse):
         for k in npy_list:
             #properties = load_pickle(self.dataset[k]['properties_file'])
             fname = k # path
-            nii_name = fname.replace('npy', extension)
-            #print(nii_name)
+            nii_name = fname.replace('.npy', extension)
             flag = nii_name in validation_folder # True: 존재 함
             if not flag:
             #if overwrite or (not isfile(join(output_folder, fname + ".nii.gz"))) or \
@@ -1148,82 +1147,84 @@ class Trainer_synapse(NetworkTrainer_synapse):
         # 일단 whole liver 기준으로만 \
         dice_list = []
         file_name = []
-        print("### Ending ###")
+        print("Just whole liver eval. 코이노이드 wait!!!")
+        print("### END")
         # LiTS list
-        if False:
-            tmp_lst=['volume-15.nii', 'volume-18.nii', 'volume-28.nii', 'volume-3.nii', 'volume-33.nii', 'volume-37.nii', 'volume-42.nii', 'volume-47.nii', 'volume-5.nii', 'volume-54.nii', 'volume-70.nii', 'volume-73.nii', 'volume-80.nii']
-            #tmp_lst=['volume-22.nii', 'volume-29.nii', 'volume-30.nii', 'volume-31.nii', 'volume-32.nii', 'volume-34.nii', 'volume-35.nii', 'volume-36.nii', 'volume-38.nii', 'volume-39.nii', 'volume-40.nii', 'volume-41.nii', 'volume-43.nii', 'volume-44.nii', 'volume-45.nii', 'volume-46.nii','volume-48.nii','volume-49.nii','volume-0.nii','volume-1.nii','volume-10.nii','volume-11.nii','volume-12.nii','volume-13.nii','volume-14.nii','volume-16.nii','volume-17.nii','volume-19.nii','volume-2.nii','volume-20.nii','volume-21.nii','volume-23.nii','volume-24.nii','volume-25.nii','volume-26.nii','volume-27.nii','volume-4.nii','volume-50.nii','volume-51.nii','volume-52.nii','volume-6.nii','volume-68.nii','volume-69.nii','volume-7.nii','volume-71.nii','volume-72.nii','volume-74.nii','volume-75.nii','volume-76.nii','volume-77.nii','volume-78.nii','volume-79.nii','volume-8.nii','volume-81.nii','volume-82.nii','volume-9.nii']
-            for pred_path, gt_path in pred_gt_tuples:
-                
-                resize = tio.Resize((256,256,-1)) # when LiTS
-                print(pred_path)
+        '''
+        tmp_lst=['volume-15.nii', 'volume-18.nii', 'volume-28.nii', 'volume-3.nii', 'volume-33.nii', 'volume-37.nii', 'volume-42.nii', 'volume-47.nii', 'volume-5.nii', 'volume-54.nii', 'volume-70.nii', 'volume-73.nii', 'volume-80.nii']
+        #tmp_lst=['volume-22.nii', 'volume-29.nii', 'volume-30.nii', 'volume-31.nii', 'volume-32.nii', 'volume-34.nii', 'volume-35.nii', 'volume-36.nii', 'volume-38.nii', 'volume-39.nii', 'volume-40.nii', 'volume-41.nii', 'volume-43.nii', 'volume-44.nii', 'volume-45.nii', 'volume-46.nii','volume-48.nii','volume-49.nii','volume-0.nii','volume-1.nii','volume-10.nii','volume-11.nii','volume-12.nii','volume-13.nii','volume-14.nii','volume-16.nii','volume-17.nii','volume-19.nii','volume-2.nii','volume-20.nii','volume-21.nii','volume-23.nii','volume-24.nii','volume-25.nii','volume-26.nii','volume-27.nii','volume-4.nii','volume-50.nii','volume-51.nii','volume-52.nii','volume-6.nii','volume-68.nii','volume-69.nii','volume-7.nii','volume-71.nii','volume-72.nii','volume-74.nii','volume-75.nii','volume-76.nii','volume-77.nii','volume-78.nii','volume-79.nii','volume-8.nii','volume-81.nii','volume-82.nii','volume-9.nii']
+        for pred_path, gt_path in pred_gt_tuples:
+            
+            resize = tio.Resize((256,256,-1)) # when LiTS
+            print(pred_path)
+            print(gt_path)
+            pred = tio.ScalarImage(pred_path)
+            label = tio.ScalarImage(gt_path)
+            #print(pred_path)
+            #print(gt_path)
+
+            ############ LiTS
+            # npy 변환
+            pred = np.array(pred)
+
+            label = np.array(label)
+            label = np.transpose(label, (2,0,1))
+            label = label[np.newaxis, ...]
+
+            # gt 변환
+            label.data = np.where(label.data >= 1, 1, 0) # LiTS
+            label = np.where(label >= 1, 1, 0) # Synapse
+            label = np.array(label)
+            #print(label.shape)
+            if len(np.unique(label)) != 2: # error check
                 print(gt_path)
-                pred = tio.ScalarImage(pred_path)
-                label = tio.ScalarImage(gt_path)
-                #print(pred_path)
-                #print(gt_path)
+                raise Exception("No label")
+            
+            #print("#### LiTS testing... ####")
+            label = np.transpose(label[0], (2,1,0)) # TODO: 9/24 axial
+            ############
 
-                ############ LiTS
-                # npy 변환
-                pred = np.array(pred)
-
+            print(gt_path.replace('segmentation', 'volume')[93:])
+            if gt_path.replace('segmentation', 'volume')[93:] in tmp_lst:
+                label = torch.flip(torch.Tensor(label),(2,))
                 label = np.array(label)
-                label = np.transpose(label, (2,0,1))
-                label = label[np.newaxis, ...]
-
-                # gt 변환
-                label.data = np.where(label.data >= 1, 1, 0) # LiTS
-                label = np.where(label >= 1, 1, 0) # Synapse
+            elif extension=='nii.gz': # 3Dircard
+                label = torch.flip(torch.Tensor(label),(2,))
                 label = np.array(label)
-                #print(label.shape)
-                if len(np.unique(label)) != 2: # error check
-                    print(gt_path)
-                    raise Exception("No label")
-                
-                #print("#### LiTS testing... ####")
-                label = np.transpose(label[0], (2,1,0)) # TODO: 9/24 axial
-                ############
+            label = label[np.newaxis, ...]
 
-                print(gt_path.replace('segmentation', 'volume')[93:])
-                if gt_path.replace('segmentation', 'volume')[93:] in tmp_lst:
-                    label = torch.flip(torch.Tensor(label),(2,))
-                    label = np.array(label)
-                elif extension=='nii.gz': # 3Dircard
-                    label = torch.flip(torch.Tensor(label),(2,))
-                    label = np.array(label)
-                label = label[np.newaxis, ...]
+            # shape 체크
+            #print(pred.shape) # (1, 245, 471, 471)
+            #print(label.shape) # (1, 245, 471, 471)
 
-                # shape 체크
-                #print(pred.shape) # (1, 245, 471, 471)
-                #print(label.shape) # (1, 245, 471, 471)
+            # dice 계산
+            intersection = (pred*label).sum()
+            union = pred.sum() + label.sum()
+            dice = 2*intersection/union
 
-                # dice 계산
-                intersection = (pred*label).sum()
-                union = pred.sum() + label.sum()
-                dice = 2*intersection/union
+            print("Dice score:", dice) # 1 case: 0.8942
+            dice_list.append(dice)
+            file_name.append(pred_path)
+        ###################
 
-                print("Dice score:", dice) # 1 case: 0.8942
-                dice_list.append(dice)
-                file_name.append(pred_path)
-            ###################
+        # txt file 저장
+        with open(os.path.join(output_folder, "dice_scores.txt"), "w") as f:
+            for i in range(len(pred_gt_tuples)):
+                f.write(pred_gt_tuples[i][0]) # pred_path
+                f.write("\n")
+                f.write("Dice score: ")
+                f.write(str(dice_list[i]))
+                f.write("\n")
+                f.write("file_name: ")
+                f.write(file_name[i])
+                f.write("\n\n")
 
-            # txt file 저장
-            with open(os.path.join(output_folder, "dice_scores.txt"), "w") as f:
-                for i in range(len(pred_gt_tuples)):
-                    f.write(pred_gt_tuples[i][0]) # pred_path
-                    f.write("\n")
-                    f.write("Dice score: ")
-                    f.write(str(dice_list[i]))
-                    f.write("\n")
-                    f.write("file_name: ")
-                    f.write(file_name[i])
-                    f.write("\n\n")
-
-                dice_array = np.array(dice_list)
-                avg_dice = np.mean(dice_array)
-                f.write("Avg dice: ")
-                f.write(str(avg_dice))
-
+            dice_array = np.array(dice_list)
+            avg_dice = np.mean(dice_array)
+            f.write("Avg dice: ")
+            f.write(str(avg_dice))
+        ##########################
+        '''
         self.network.train(current_mode)
 
     def run_online_evaluation(self, output, target):
