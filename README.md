@@ -73,7 +73,7 @@ GUNETR_pplus_LiTS
 │                   ├── model_final_checkpoint.model
 │                   └── model_final_checkpoint.model.pkl
 ```
-Final-model-chekcpoint: [link](#).  
+Final-model-chekcpoint: [link](https://drive.google.com/drive/folders/1c_Ths-046TQo7p9uSXeOGHxIr3n649KS?usp=sharing).  
   
 ---
 # Implementation
