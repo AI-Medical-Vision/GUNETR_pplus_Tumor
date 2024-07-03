@@ -91,7 +91,7 @@ $> sh run_evaluation_synapse.sh
 You select the options, `LiTS`, and `3Dircadb`.  
   
 3. Calculation metrics
-Please see our [jupyter notebook](#).  
+Please see our [jupyter notebook](https://github.com/AI-Medical-Vision/GUNETR_pplus_Tumor/blob/main/LiTS_metric_Tumor.ipynb).  
 We implemented all of metric classes.  
 > You can control post-processing option through `flag_post = True`.
   
