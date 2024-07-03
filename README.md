@@ -58,12 +58,18 @@ GUNETR_pplus_LiTS
 │                   ├── masking
 │                       ├── 3Dircadb
 │                       ├── LiTS
+│                           ├── masking-3.nii
+│                           ├── ...
+│                           └── masking-123.nii
 │                   └── unetr_pp_Plansv2.1_plans_3D.pkl
 ```
 LiTS dataset: [131 cases](https://github.com/Auggen21/LITS-Challenge?tab=readme-ov-file).  
 3Dircadb link: [20 cases](https://www.ircad.fr/research/data-sets/liver-segmentation-3d-ircadb-01/).  
 > Our LiTS-testset number is `3, 17. 18, 28, 33, 37, 43, 64, 70, 77, 80, 90, 100, 104, 110, and 123`.  
-  
+
+## Make masking files
+Please see [whole_liver_segmentation](#).
+   
 ## Model Checkpoint
 ```
 GUNETR_pplus_LiTS
