@@ -1,8 +1,8 @@
-# G-UNETR++: Whole liver segmentation
+# G-UNETR++: Liver tumor segmentation
 ---
 ![model](./images/model.png)  
   
-**🔥G-UNETR++: A gradient-enhanced network for accurate and robust liver segmentation from CT images**   
+**🔥G-UNETR++: Liver tumor segmentation from CT images**   
 Paper: [G-UNETR++](#)
   
 ---
@@ -47,24 +47,19 @@ GUNETR_pplus_LiTS
 │                       ├── 3Dircadb
 │                       ├── LiTS
 │                           ├── segmentation-3.nii
-│                           ├── segmentation-5.nii
 │                           ├── ...
-│                           └── segmentation-127.nii
-│                       ├── Sliver07
+│                           └── segmentation-123.nii
 │                   ├── unetr_pp_Data_plans_v2.1_stage1
 │                       ├── 3Dircadb
 │                       ├── LiTS
 │                           ├── volume-3.nii
-│                           ├── volume-5.nii
 │                           ├── ...
-│                           └── volume-127.nii
-│                       ├── Sliver07
+│                           └── volume-123.nii
 │                   └── unetr_pp_Plansv2.1_plans_3D.pkl
 ```
 LiTS dataset: [131 cases](https://github.com/Auggen21/LITS-Challenge?tab=readme-ov-file).  
 3Dircadb link: [20 cases](https://www.ircad.fr/research/data-sets/liver-segmentation-3d-ircadb-01/).  
-Sliver07 link: [20 cases](https://sliver07.grand-challenge.org/).
-> Our LiTS-testset number is `3, 5, 15, 18, 28, 33, 37, 42, 47, 54, 62, 70, 73, 80, 90, 100, 105, 110, 121, and 127`.  
+> Our LiTS-testset number is `3, 17. 18, 28, 33, 37, 43, 64, 70, 77, 80, 90, 100, 104, 110, and 123`.  
   
 ## Model Checkpoint
 ```
@@ -75,10 +70,10 @@ GUNETR_pplus_LiTS
 │           ├── unetr_pp_trainer_synapse__unetr_pp_Plansv2.1        
 │               ├── fold_4
 │                   ├── validation_raw
-│                   ├── model_best.model
-│                   └── model_best.model.pkl
+│                   ├── model_final_checkpoint.model
+│                   └── model_final_checkpoint.model.pkl
 ```
-Best-model-chekcpoint: [link](https://drive.google.com/drive/folders/11H3IcizvI180RIrgDSNW7VlFGXL39H7k?usp=drive_link).  
+Final-model-chekcpoint: [link](#).  
   
 ---
 # Implementation
@@ -86,14 +81,14 @@ Best-model-chekcpoint: [link](https://drive.google.com/drive/folders/11H3IcizvI1
 ```bash
 $> python LiTS_npy_make.py
 ```
-You select the options, `LiTS`, `3Dircadb`, and `Sliver`.  
+You select the options, `LiTS`, and `3Dircadb`.  
   
 2. Evaluation script
 ```bash
 $> cd ./evaluation_scripts
 $> sh run_evaluation_synapse.sh
 ```
-You select the options, `LiTS`, `3Dircadb`, and `Sliver`.  
+You select the options, `LiTS`, and `3Dircadb`.  
   
 3. Calculation metrics
 Please see our [jupyter notebook](#).  
@@ -103,15 +98,13 @@ We implemented all of metric classes.
 ---
 # Result
 ## LiTS
-| Model | DSC | Jaccard | VOE | RAVD | ASSD | RMSD | MSSD |  
-| --- | --- | --- | --- | --- | --- | --- | --- |  
-| Guo et al. | 0.9430 | --- | --- | --- | 2.30 | 4.70 | 34.70 | 
-| Song et al. | 0.9680 | --- | 0.0700 | 0.0150 | --- | --- | --- | 
-| Lei et al.  | 0.9630 | --- | 0.0688 | 0.0146 | 1.37 | 77.60 | --- | 
-| Chen et al. | 0.9650 | --- | 0.0670 | 0.0090 | 1.22 | 28.09 | --- | 
-| Zhu et al. | 0.9688 | 0.9422 | 0.0578 | **0.0039** | 1.09 | --- | 16.08 | 
-| Chen et al. | 0.9727 | --- | 0.0531 | 1.0800 | 1.31 | 3.05 | --- | 
-| **Ours (G-UNTER++)** | **0.9737** | **0.9490** | **0.0511** | 0.0201 | **0.64** | **1.17** | **12.75** | 
+| Model | DSC | VOE | RAVD | ASSD | RMSD |  
+| --- | --- | --- | --- | --- | --- | 
+| Chen et al. | 0.711 | 0.401 | 0.023 | 7.201 | 13.445 | 
+| Chen et al. | 0.705 | 0.395 | 0.534 | 8.286 | 13.680 | 
+| Chen et al. | 0.742 | 0.367 | 0.107 | 5.996 | 10.853 | 
+| Jiang et al. | 0.762 | 0.371 | 0.012 | --- | --- | 
+| **Ours (G-UNTER++)** | **0.844** | **0.263** | **0.133** | **1.317** | **3.189** | 
   
 ---
 # References
@@ -121,8 +114,8 @@ We implemented all of metric classes.
 # Citation
 ```bibtex
 @ARTICLE{
-  title={G-UNETR++: A gradient-enhanced network for accurate and robust liver segmentation from CT images}, 
-  author={Seungyoo Lee, Kyujin Han, Hangyeul Shin, Harin Park, Xiaopeng Yang, Jae Do Yang, Hee Chul Yu, Heecheon You},
+  title={G-UNETR++}, 
+  author={},
   journal={}, 
   year={2024},
   doi={}}
