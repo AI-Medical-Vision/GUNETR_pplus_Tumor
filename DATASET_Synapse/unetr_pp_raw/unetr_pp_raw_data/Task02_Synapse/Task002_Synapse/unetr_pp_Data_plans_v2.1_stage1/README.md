@@ -15,6 +15,9 @@ Upload CT files!
 │           ├── volume-3.nii
 │           ├── ...
 │           └── volume-123.nii
+│    ├── masking
+│        ├── 3Dircadb
+│        ├── LiTS
 └── unetr_pp_Plansv2.1_plans_3D.pkl
 ```
 
