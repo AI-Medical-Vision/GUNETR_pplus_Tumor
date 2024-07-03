@@ -87,23 +87,23 @@ Final-model-chekcpoint: [link](https://drive.google.com/drive/folders/1c_Ths-046
 ---
 # Implementation
 ![model](./images/masking.png)   
-0. Make masking files  
+1. Make masking files  
 Using [LiTS Whole liver segmentation model](https://github.com/AI-Medical-Vision/GUNETR_pplus_LiTS).  
   
-1. Make npy files (automatic apply masking)
+2. Make npy files (automatic apply masking)
 ```bash
 $> python LiTS_npy_make.py
 ```
 You select the options, `LiTS`, and `3Dircadb`.  
   
-2. Evaluation script
+3. Evaluation script
 ```bash
 $> cd ./evaluation_scripts
 $> sh run_evaluation_synapse.sh
 ```
 You select the options, `LiTS`, and `3Dircadb`.  
   
-3. Calculation metrics
+4. Calculation metrics
 Please see our [jupyter notebook](https://github.com/AI-Medical-Vision/GUNETR_pplus_Tumor/blob/main/LiTS_metric_Tumor.ipynb).  
 We implemented all of metric classes.  
 > You can control post-processing option through `flag_post = True`.
