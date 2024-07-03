@@ -68,7 +68,7 @@ LiTS dataset: [131 cases](https://github.com/Auggen21/LITS-Challenge?tab=readme-
 > Our LiTS-testset number is `3, 17. 18, 28, 33, 37, 43, 64, 70, 77, 80, 90, 100, 104, 110, and 123`.  
 
 ## Make masking files
-Please see [whole_liver_segmentation](#).
+Please see [whole_liver_segmentation](https://github.com/AI-Medical-Vision/GUNETR_pplus_LiTS/blob/main/LiTS_masking.ipynb).  
    
 ## Model Checkpoint
 ```
@@ -86,7 +86,11 @@ Final-model-chekcpoint: [link](https://drive.google.com/drive/folders/1c_Ths-046
   
 ---
 # Implementation
-1. Make npy files
+![model](./images/masking.png)   
+0. Make masking files  
+Using [LiTS Whole liver segmentation model](https://github.com/AI-Medical-Vision/GUNETR_pplus_LiTS).  
+  
+1. Make npy files (automatic apply masking)
 ```bash
 $> python LiTS_npy_make.py
 ```
