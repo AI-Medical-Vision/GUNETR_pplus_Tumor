@@ -1,9 +1,9 @@
-# G-UNETR++: Liver tumor segmentation
+# Deep Learning-Based Liver Tumor Segmentation from Computed Tomography Scans with a Gradient-Enhanced Network
 ---
 ![model](./images/model.png)  
   
-**🔥G-UNETR++: Liver tumor segmentation from CT images**   
-Paper: [G-UNETR++](#)
+**🔥Deep Learning-Based Liver Tumor Segmentation from Computed Tomography Scans with a Gradient-Enhanced Network**   
+Paper: [G-UNETR++ meets Tumor](https://www.mdpi.com/2075-4418/16/3/429)
   
 ---
 # Requirements
